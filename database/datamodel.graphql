@@ -1,0 +1,25 @@
+type Sim {
+	id: ID! @unique
+	createdAt: DateTime!
+	firstName: String!
+	lastName: String!
+	parents: Partnership @relation(name: "Generative")
+	partners: [Partnership!]! @relation(name: "Procreative")
+	createdBy: User
+}
+
+type Partnership {
+	id: ID! @unique
+	partners: [Sim!]! @relation(name: "Procreative")
+	offspring: [Sim!]! @relation(name: "Generative")
+	createdBy: User
+}
+
+type User {
+	id: ID! @unique
+	name: String!
+	email: String! @unique
+	password: String!
+	sims: [Sim!]!
+	partnerships: [Partnership!]!
+}
